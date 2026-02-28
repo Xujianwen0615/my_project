@@ -1,0 +1,58 @@
+algorithm: cgmatch
+save_dir: ./saved_models/classic_cv
+save_name: cgmatch_custom_2_0
+resume: True
+load_path: ./saved_models/classic_cv/cgmatch_custom_2_0/latest_model.pth
+overwrite: True
+use_tensorboard: True
+use_wandb: False
+epoch: 2048
+# num_train_iter: 1048576
+# num_eval_iter: 5120
+# warm_up_iter: 2048
+# num_log_iter: 256
+#总训练迭代次数：设为略大于热身迭代次数的值（如2500）
+num_train_iter: 102400
+# 热身阶段迭代次数：保持默认或适当减小（如1000，确保能完成初始化）
+warm_up_iter: 256
+# 验证间隔：设为较小值（如500，确保在总迭代内至少触发1次验证）
+num_eval_iter: 5120
+# 日志打印间隔：设为较小值（如100，方便快速看到训练日志）
+num_log_iter: 256
+
+queue_size: 1000
+num_labels: 60
+batch_size: 64
+eval_batch_size: 256
+hard_label: True
+T: 0.5
+p_cutoff: 0.95
+ulb_loss_ratio: 1.0
+lambda_h: 1.0
+uratio: 7
+ema_m: 0.999
+crop_ratio: 0.875
+img_size: 32
+optim: SGD
+lr: 0.03
+momentum: 0.9
+weight_decay: 0.0005
+layer_decay: 1.0
+amp: True
+clip: 0.0
+use_cat: True
+net: wrn_28_2
+net_from_name: False
+data_dir: ./data
+dataset: custom2
+train_sampler: RandomSampler
+num_classes: 6
+num_workers: 1
+seed: 0
+world_size: 1
+rank: 0
+distributed: False
+dist_url: tcp://127.0.0.1:10008
+dist_backend: nccl
+gpu: None
+model_dir: ./training_dynamics/classic_cv/cgmatch_custom_2_0/

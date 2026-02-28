@@ -1,0 +1,65 @@
+algorithm: freematch
+save_dir: /root/autodl-tmp/usb/saved_models/classic_cv
+save_name: freematch_custom_75_0
+resume: True
+# resume: False
+load_path: /root/autodl-tmp/usb/saved_models/classic_cv/freematch_custom_75_0/latest_model.pth
+overwrite: True
+use_tensorboard: True
+# use_tensorboard: False
+use_wandb: False
+epoch: 1024
+num_train_iter: 524288
+num_eval_iter: 10240
+num_log_iter: 512
+# batch_size: 64
+# eval_batch_size: 256
+# uratio: 7
+# epoch: 10  # 原1024 → 大幅减少，仅需跑少量轮次观察硬件状态
+# num_train_iter: 1000  # 原1048576 → 核心修改！减少总迭代次数，单次测试仅跑1000步，耗时极短
+# num_eval_iter: 2000  # 原5120 → 调大超过num_train_iter，跳过评估步骤（评估耗时占比高）
+# num_log_iter: 500  # 原256 → 调大日志打印间隔，减少IO开销
+batch_size: 16
+eval_batch_size: 64
+uratio: 3
+num_labels: 75
+hard_label: True
+T: 0.5
+dist_align: True
+dist_uniform: True
+per_class: False
+ema_p: 0.999
+ulb_loss_ratio: 1.0
+n_sigma: 2
+ema_m: 0.999
+crop_ratio: 0.875
+# img_size: 32
+img_size: 256
+optim: SGD
+lr: 0.03
+momentum: 0.9
+weight_decay: 0.0005
+layer_decay: 1.0
+# amp: False
+# clip: 0.0
+amp: True
+clip: 0.1
+use_cat: True
+net: wrn_28_2
+net_from_name: False
+data_dir: ./data
+dataset: custom
+train_sampler: RandomSampler
+num_classes: 15
+num_workers: 16
+pin_memory: True  # 添加这个参数
+seed: 0
+world_size: 1
+rank: 0
+# multiprocessing_distributed: True
+multiprocessing_distributed: False
+dist_url: tcp://127.0.0.1:10072
+dist_backend: nccl
+gpu: 0
+
+clip_grad: 0.1
